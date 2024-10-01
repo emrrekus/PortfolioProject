@@ -36,5 +36,7 @@ namespace PortfolioProject.Models
         public virtual DbSet<Service> Service { get; set; }
         public virtual DbSet<Skill> Skill { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Admin> Admin { get; set; }
+        public virtual DbSet<SocialMedia> SocialMedia { get; set; }
     }
 }
