@@ -22,6 +22,7 @@ namespace PortfolioProject.Models
         public Nullable<bool> IsRead { get; set; }
         public string Message { get; set; }
         public Nullable<int> CategoryId { get; set; }
+        public string Phone { get; set; }
     
         public virtual Category Category { get; set; }
     }

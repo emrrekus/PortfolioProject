@@ -9,10 +9,30 @@ namespace PortfolioProject.Controllers
 {
     public class DefaultController : Controller
     {
-       DbMyPortfolioEntities db=new DbMyPortfolioEntities();
+        DbMyPortfolioEntities db = new DbMyPortfolioEntities();
         public ActionResult Index()
         {
+            List<SelectListItem> values = (from x in db.Category.ToList()
+                                           select new SelectListItem
+                                           {
+                                               Text = x.CategoryName,
+                                               Value= x.CategoryId.ToString()
+                                           }).ToList();
+
+            ViewBag.value=values;
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Index(Contact contact)
+        {
+            contact.IsRead = false;
+            contact.SendDate = DateTime.Parse(DateTime.Now.ToShortDateString());
+
+            db.Contact.Add(contact);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
         }
 
         public PartialViewResult PartialHead()
@@ -30,11 +50,12 @@ namespace PortfolioProject.Controllers
             return PartialView();
         }
 
-        public PartialViewResult PartialHeader()        {
-           
+        public PartialViewResult PartialHeader()
+        {
 
-            ViewBag.title= db.Profile.Select(x => x.Title).FirstOrDefault();
-            ViewBag.description=db.Profile.Select(x=>x.Description).FirstOrDefault();
+
+            ViewBag.title = db.Profile.Select(x => x.Title).FirstOrDefault();
+            ViewBag.description = db.Profile.Select(x => x.Description).FirstOrDefault();
             ViewBag.adress = db.Profile.Select(x => x.Adress).FirstOrDefault();
             ViewBag.email = db.Profile.Select(x => x.Email).FirstOrDefault();
             ViewBag.phone = db.Profile.Select(x => x.Phone).FirstOrDefault();
@@ -63,9 +84,15 @@ namespace PortfolioProject.Controllers
 
         public PartialViewResult PartialSkill()
         {
-            var values = db.Skill.Where(x=>x.Status==true).ToList();    
-                
+            var values = db.Skill.Where(x => x.Status == true).ToList();
+
             return PartialView(values);
+        }
+
+
+        public PartialViewResult PartialFooter()
+        {
+            return PartialView();
         }
 
 
