@@ -18,5 +18,8 @@ namespace PortfolioProject.Models
         public string Title { get; set; }
         public string Icon { get; set; }
         public string Description { get; set; }
+        public string Subtitle1 { get; set; }
+        public string Subtitle2 { get; set; }
+        public string Subtitle3 { get; set; }
     }
 }

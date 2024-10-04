@@ -82,6 +82,29 @@ namespace PortfolioProject.Controllers
             return PartialView(values);
         }
 
+        public PartialViewResult PartialServices()
+        {
+            var values= db.Service.ToList();
+            return PartialView(values); 
+        }
+
+        public PartialViewResult PartialPortfolio()
+        {
+
+            var values = db.Expertise.ToList();
+            return PartialView(values);
+        }
+
+        public PartialViewResult PartialTestimonial()
+        {
+
+            var values = db.Feature.ToList();
+            return PartialView(values);
+        }
+
+
+
+
         public PartialViewResult PartialSkill()
         {
             var values = db.Skill.Where(x => x.Status == true).ToList();
