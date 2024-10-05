@@ -12,7 +12,7 @@ namespace PortfolioProject.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Expertise
+    public partial class Portfolio
     {
         public int ExpertiseId { get; set; }
         public string Title { get; set; }

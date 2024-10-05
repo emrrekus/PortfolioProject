@@ -63,7 +63,17 @@
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
           <Property Name="Date" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="Expertise">
+        <EntityType Name="Internship">
+          <Key>
+            <PropertyRef Name="InternshipId" />
+          </Key>
+          <Property Name="InternshipId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Subtitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Portfolio">
           <Key>
             <PropertyRef Name="ExpertiseId" />
           </Key>
@@ -71,16 +81,6 @@
           <Property Name="Title" Type="nvarchar" MaxLength="50" />
           <Property Name="Image" Type="nvarchar(max)" />
           <Property Name="Description" Type="nvarchar" MaxLength="150" />
-        </EntityType>
-        <EntityType Name="Feature">
-          <Key>
-            <PropertyRef Name="FeatureId" />
-          </Key>
-          <Property Name="FeatureId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Adress" Type="nvarchar" MaxLength="50" />
-          <Property Name="NameSurname" Type="nvarchar" MaxLength="50" />
-          <Property Name="ImageUrl" Type="nvarchar(max)" />
-          <Property Name="Description" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Profile">
           <Key>
@@ -137,6 +137,16 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <EntityType Name="Testimonial">
+          <Key>
+            <PropertyRef Name="FeatureId" />
+          </Key>
+          <Property Name="FeatureId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Adress" Type="nvarchar" MaxLength="50" />
+          <Property Name="NameSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="ImageUrl" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+        </EntityType>
         <Association Name="FK_Contact_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
           <End Role="Contact" Type="Self.Contact" Multiplicity="*" />
@@ -156,13 +166,14 @@
           <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Education" EntityType="Self.Education" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Experience" EntityType="Self.Experience" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Expertise" EntityType="Self.Expertise" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Feature" EntityType="Self.Feature" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Internship" EntityType="Self.Internship" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Portfolio" EntityType="Self.Portfolio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Profile" EntityType="Self.Profile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Skill" EntityType="Self.Skill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SocialMedia" EntityType="Self.SocialMedia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Testimonial" EntityType="Self.Testimonial" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Contact_Category" Association="Self.FK_Contact_Category">
             <End Role="Category" EntitySet="Category" />
             <End Role="Contact" EntitySet="Contact" />
@@ -232,7 +243,7 @@
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Expertise">
+        <EntityType Name="Portfolio">
           <Key>
             <PropertyRef Name="ExpertiseId" />
           </Key>
@@ -240,16 +251,6 @@
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Feature">
-          <Key>
-            <PropertyRef Name="FeatureId" />
-          </Key>
-          <Property Name="FeatureId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Adress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NameSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Profile">
           <Key>
@@ -306,6 +307,16 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <EntityType Name="Testimonial">
+          <Key>
+            <PropertyRef Name="FeatureId" />
+          </Key>
+          <Property Name="FeatureId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Adress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NameSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
         <Association Name="FK_Contact_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
           <End Role="Contact" Type="Self.Contact" Multiplicity="*" />
@@ -325,18 +336,29 @@
           <EntitySet Name="Contact" EntityType="Self.Contact" />
           <EntitySet Name="Education" EntityType="Self.Education" />
           <EntitySet Name="Experience" EntityType="Self.Experience" />
-          <EntitySet Name="Expertise" EntityType="Self.Expertise" />
-          <EntitySet Name="Feature" EntityType="Self.Feature" />
+          <EntitySet Name="Portfolio" EntityType="Self.Portfolio" />
           <EntitySet Name="Profile" EntityType="Self.Profile" />
           <EntitySet Name="Service" EntityType="Self.Service" />
           <EntitySet Name="Skill" EntityType="Self.Skill" />
           <EntitySet Name="SocialMedia" EntityType="Self.SocialMedia" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Testimonial" EntityType="Self.Testimonial" />
           <AssociationSet Name="FK_Contact_Category" Association="Self.FK_Contact_Category">
             <End Role="Category" EntitySet="Category" />
             <End Role="Contact" EntitySet="Contact" />
           </AssociationSet>
+          <EntitySet Name="Internship" EntityType="DbMyPortfolioModel.Internship" />
         </EntityContainer>
+        <EntityType Name="Internship">
+          <Key>
+            <PropertyRef Name="InternshipId" />
+          </Key>
+          <Property Name="InternshipId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Subtitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -407,24 +429,13 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Expertise">
-            <EntityTypeMapping TypeName="DbMyPortfolioModel.Expertise">
-              <MappingFragment StoreEntitySet="Expertise">
+          <EntitySetMapping Name="Portfolio">
+            <EntityTypeMapping TypeName="DbMyPortfolioModel.Portfolio">
+              <MappingFragment StoreEntitySet="Portfolio">
                 <ScalarProperty Name="ExpertiseId" ColumnName="ExpertiseId" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Feature">
-            <EntityTypeMapping TypeName="DbMyPortfolioModel.Feature">
-              <MappingFragment StoreEntitySet="Feature">
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="FeatureId" ColumnName="FeatureId" />
-                <ScalarProperty Name="Adress" ColumnName="Adress" />
-                <ScalarProperty Name="NameSurname" ColumnName="NameSurname" />
-                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -485,6 +496,28 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Testimonial">
+            <EntityTypeMapping TypeName="DbMyPortfolioModel.Testimonial">
+              <MappingFragment StoreEntitySet="Testimonial">
+                <ScalarProperty Name="FeatureId" ColumnName="FeatureId" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="NameSurname" ColumnName="NameSurname" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Internship">
+            <EntityTypeMapping TypeName="DbMyPortfolioModel.Internship">
+              <MappingFragment StoreEntitySet="Internship">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Subtitle" ColumnName="Subtitle" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="InternshipId" ColumnName="InternshipId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

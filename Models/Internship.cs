@@ -12,12 +12,12 @@ namespace PortfolioProject.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Feature
+    public partial class Internship
     {
-        public int FeatureId { get; set; }
-        public string Adress { get; set; }
-        public string NameSurname { get; set; }
-        public string ImageUrl { get; set; }
+        public int InternshipId { get; set; }
+        public string Title { get; set; }
+        public string Subtitle { get; set; }
+        public string Date { get; set; }
         public string Description { get; set; }
     }
 }

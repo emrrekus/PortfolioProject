@@ -82,6 +82,12 @@ namespace PortfolioProject.Controllers
             return PartialView(values);
         }
 
+        public PartialViewResult PartialInternship()
+        {
+            var values=db.Internship.ToList();
+            return PartialView(values);
+        }
+
         public PartialViewResult PartialServices()
         {
             var values= db.Service.ToList();
@@ -91,14 +97,14 @@ namespace PortfolioProject.Controllers
         public PartialViewResult PartialPortfolio()
         {
 
-            var values = db.Expertise.ToList();
+            var values = db.Portfolio.ToList();
             return PartialView(values);
         }
 
         public PartialViewResult PartialTestimonial()
         {
 
-            var values = db.Feature.ToList();
+            var values = db.Testimonial.ToList();
             return PartialView(values);
         }
 
