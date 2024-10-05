@@ -35,9 +35,18 @@ namespace PortfolioProject.Controllers
         [HttpPost]
         public ActionResult CreateSkill(Skill skill)
         {
-            context.Skill.Add(skill);
-            context.SaveChanges();
-            return RedirectToAction("SkillList");
+            if (ModelState.IsValid)
+            {
+                context.Skill.Add(skill);
+                context.SaveChanges();
+                return RedirectToAction("SkillList");
+            }
+            else
+            {
+                return View("CreateSkill");
+            }
+
+          
 
         }
 

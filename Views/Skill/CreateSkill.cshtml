@@ -7,15 +7,19 @@
 <h2 class="mb-4">Yeni Yetenek Ekleme Sayfası</h2>
 
 <form method="post">
-   
+
     <label>Yetenek Adı</label>
-    @Html.TextBoxFor(x => x.SkillName, new { @class = "form-control" })
+    @Html.TextBoxFor(x => x.SkillName, new { @class = "form-control", @placeholder = "Yetenek Adı giriniz" })
+    @Html.ValidationMessageFor(x => x.SkillName, "", new { @class = "text-danger" })
+
     <br />
     <label>Değer</label>
-    @Html.TextBoxFor(x => x.Rate, new { @class = "form-control" })
+    @Html.TextBoxFor(x => x.Rate, new { @class = "form-control", @placeholder = "Değer giriniz" })
+    @Html.ValidationMessageFor(x => x.Rate, "", new { @class = "text-danger" })
     <br />
     <label>Icon</label>
-    @Html.TextBoxFor(x => x.Icon, new { @class = "form-control" })
+    @Html.TextBoxFor(x => x.Icon, new { @class = "form-control", @placeholder = "Icon giriniz" })
+    @Html.ValidationMessageFor(x => x.Icon, "", new { @class = "text-danger" })
     <br />
     <label>Statü</label>
     @Html.DropDownListFor(x => x.Status, new List<SelectListItem>

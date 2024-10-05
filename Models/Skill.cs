@@ -11,12 +11,20 @@ namespace PortfolioProject.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Skill
     {
         public int SkillId { get; set; }
+
+        [Required(ErrorMessage = "Lütfen Yetenek Adý Girin")]
+        [StringLength(50, ErrorMessage = "Yetenek adý 100 karakterden uzun olamaz.")]
         public string SkillName { get; set; }
+      
+        [Range(1, 100, ErrorMessage = "Deðer 1 ile 100 arasýnda olmalýdýr.")]
         public Nullable<byte> Rate { get; set; }
+
+        [Required(ErrorMessage = "Lütfen Icon Girin")]
         public string Icon { get; set; }
         public Nullable<bool> Status { get; set; }
     }
