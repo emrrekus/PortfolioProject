@@ -38,7 +38,7 @@
 <div class="d-flex justify-content-between align-items-center">
     <a href="/Skill/CreateSkill" class="btn btn-info">Yeni Yetenek Girişi</a>
 
-    <!-- Sayfa numaralarını sağa alalım -->
+    
     <div>
         @Html.PagedListPager((IPagedList)Model, page => Url.Action("SkillList", new { page }), new PagedListRenderOptions
         {

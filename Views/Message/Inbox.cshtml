@@ -1,4 +1,6 @@
-﻿@model List<PortfolioProject.Models.Contact>
+﻿@model PagedList.IPagedList<PortfolioProject.Models.Contact>
+@using PagedList
+@using PagedList.Mvc
 @{
     ViewBag.Title = "Inbox";
     Layout = "~/Views/Admin/Index.cshtml";
@@ -18,16 +20,47 @@
         <th>Mesajı Sil</th>
     </tr>
 
-    @foreach(var item in Model)
+    @foreach (var item in Model)
     {
         count++;
         <tr>
             <td>@count</td>
             <td>@item.NameSurname</td>
             <td>@item.SendDate</td>
-            <td>@item.Subject</td>
 
-            @if (item.IsRead==false)
+            @switch (item.Subject)
+            {
+
+                case "Proje Talebi":
+                    <td class="alert alert-primary">@item.Subject</td>
+                    break;
+                case "Test":
+                    <td class="alert alert-danger">@item.Subject</td>
+                    break;
+                case "Şikayet":
+                    <td class="alert alert-info">@item.Subject</td>
+                    break;
+                case "Deneme":
+                    <td class="alert alert-secondary">@item.Subject</td>
+                    break;
+                case "Görüşme":
+                    <td class="alert alert-success">@item.Subject</td>
+                    break;
+                case "Toplantı":
+                    <td class="alert alert-dark">@item.Subject</td>
+                    break;
+                case "Teklif":
+                    <td class="alert alert-warning">@item.Subject</td>
+                    break;
+                case "Staj":
+                    <td class="alert alert-secondary">@item.Subject</td>
+                    break;
+
+
+            }
+
+
+            @if (item.IsRead == false)
             {
                 <td><a href="/Message/ChangeMessageStatusToTrue/@item.ContactId" class="btn btn-info">Okundu Olarak İşaretle</a></td>
             }
@@ -36,10 +69,23 @@
                 <td><a href="/Message/ChangeMessageStatusToFalse/@item.ContactId" class="btn btn-secondary">Okunmadı Olarak İşaretle</a></td>
             }
             <td><a href="#" class="btn btn-warning">Mesajı Aç</a></td>
-            <td><a href="#" class="btn btn-danger">Mesajı Sil</a></td>
+            <td><a href="/Message/DeleteMessage/@item.ContactId" class="btn btn-danger">Mesajı Sil</a></td>
         </tr>
     }
 
 
 </table>
 
+
+<div class="d-flex justify-content-between align-items-center">
+
+
+
+
+    <div>
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("Inbox", new { page }), new PagedListRenderOptions
+        {
+            LiElementClasses = new List<string> { "page-link" }
+        })
+    </div>
+</div>
