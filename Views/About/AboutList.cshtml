@@ -1,0 +1,35 @@
+﻿@model List<PortfolioProject.Models.About>
+@{
+    ViewBag.Title = "AboutList";
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+<h2 class="mb-4">Hakkımda</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Id</th>
+        <th>Başlık</th>
+        <th>Açıklama</th>
+        <th>Resim</th>
+        <th>Güncelle</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td>@item.AboutId</td>
+            <td>@item.Title</td>
+            <td>@item.Description</td>
+            <td><img src="@item.ImageUrl" alt="Resim" style="width: 100px; height: auto;" /></td>
+            <td><a href="/About/UpdateAbout/@item.AboutId" class="btn btn-success">Güncelle</a> </td>
+        </tr>
+    }
+
+
+
+
+</table>
+
+

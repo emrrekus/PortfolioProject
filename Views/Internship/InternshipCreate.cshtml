@@ -1,0 +1,27 @@
+﻿@model PortfolioProject.Models.Internship
+@{
+    ViewBag.Title = "InternshipCreate";
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+<h2 class="mb-4">Yeni Staj Bilgisi Girişi</h2>
+
+
+
+<form method="post">
+
+    <label>Şirket Adı</label>
+    @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
+    <br />
+    <label>Bölüm Adı</label>
+    @Html.TextBoxFor(x => x.Subtitle, new { @class = "form-control" })
+    <br />
+    <label>Açıklama</label>
+    @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+    <br />
+    <label>Tarih</label>
+    @Html.TextAreaFor(x => x.Date, new { @class = "form-control" })
+    <br />
+    <button class="btn btn-info"> Yeni Staj Bilgisi Kaydet</button>
+</form>
+

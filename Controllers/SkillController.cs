@@ -52,5 +52,15 @@ namespace PortfolioProject.Controllers
             return View(value);
         }
 
+        [HttpPost]
+        public ActionResult UpdateSkill(Skill skill)
+        {
+            var value = context.Skill.Find(skill.SkillId);
+            value.SkillName = skill.SkillName;
+            value.Rate = skill.Rate;
+            context.SaveChanges();
+            return RedirectToAction("SkillList");
+        }
+
     }
 }
