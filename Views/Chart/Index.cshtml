@@ -1,0 +1,115 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+<h2 class="text-center mb-4">Skill Grafikler</h2>
+
+
+<div class="text-center mb-3">
+    <label for="chartTypeSelector" class="form-label me-2">Grafik Türü Seçin:</label>
+    <select id="chartTypeSelector" onchange="updateChart()" class="form-control w-auto d-inline-block me-4 mr-4">
+        <option value="bar">Bar Chart</option>
+        <option value="line">Line Chart</option>
+        <option value="polarArea" selected>Polar Area Chart</option>
+        <option value="pie">Pie Chart</option>
+        <option value="doughnut">Doughnut Chart</option>
+    </select>
+
+    <label for="filterSelector" class="form-label me-2">Filtreleme Seçeneği:</label>
+    <select id="filterSelector" onchange="updateChart()" class="form-con w-auto d-inline-block">
+        <option value="all">Tüm Yetenekler</option>
+        <option value="low">Düşük Seviye (0-50)</option>
+        <option value="medium">Orta Seviye (51-75)</option>
+        <option value="high">Yüksek Seviye (76-100)</option>
+    </select>
+</div>
+
+<canvas id="dynamicChart" style="display: block; margin: 0 auto; max-width: 900px; height: 600px;"></canvas>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+<script>
+    var skillNames = @Html.Raw(Json.Encode(ViewBag.SkillNames));
+    var skillRates = @Html.Raw(Json.Encode(ViewBag.SkillRates));
+
+    var backgroundColors = [];
+    for (var i = 0; i < skillRates.length; i++) {
+        backgroundColors.push(getRandomColor());
+    }
+
+    var ctx = document.getElementById('dynamicChart').getContext('2d');
+    var dynamicChart;
+
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    function createChart(chartType, filteredData) {
+        if (dynamicChart) {
+            dynamicChart.destroy();
+        }
+
+        var chartOptions = {
+            plugins: {
+                legend: { position: 'right' }
+            }
+        };
+
+        // Eğer Bar veya Line Chart ise eksenleri ekleyelim
+        if (chartType === 'bar' || chartType === 'line') {
+            chartOptions.scales = {
+                xAxes: [{ ticks: { beginAtZero: true } }],
+                yAxes: [{ ticks: { beginAtZero: true } }]
+            };
+        }
+
+        dynamicChart = new Chart(ctx, {
+            type: chartType,
+            data: filteredData,
+            options: chartOptions
+        });
+    }
+
+    function applyFilter() {
+        var filter = document.getElementById('filterSelector').value;
+        var filteredNames = [];
+        var filteredRates = [];
+
+        for (var i = 0; i < skillRates.length; i++) {
+            var rate = skillRates[i];
+            if (filter === 'all' ||
+                (filter === 'low' && rate <= 50) ||
+                (filter === 'medium' && rate > 50 && rate <= 75) ||
+                (filter === 'high' && rate > 75)) {
+                filteredNames.push(skillNames[i]);
+                filteredRates.push(rate);
+            }
+        }
+
+        return {
+            labels: filteredNames,
+            datasets: [{
+                label: 'Yetenek Seviyesi',
+                data: filteredRates,
+                backgroundColor: backgroundColors.slice(0, filteredRates.length),
+                borderColor: '#fff',
+                borderWidth: 1
+            }]
+        };
+    }
+
+    function updateChart() {
+        var selectedType = document.getElementById('chartTypeSelector').value;
+        var filteredData = applyFilter();
+        createChart(selectedType, filteredData);
+    }
+
+    updateChart();
+</script>
