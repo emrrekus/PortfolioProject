@@ -1,4 +1,4 @@
-﻿
+﻿@model PortfolioProject.Models.Skill
 @{
     ViewBag.Title = "CreateSkill";
     Layout = "~/Views/Admin/Index.cshtml";
@@ -7,14 +7,24 @@
 <h2 class="mb-4">Yeni Yetenek Ekleme Sayfası</h2>
 
 <form method="post">
+   
+    <label>Yetenek Adı</label>
+    @Html.TextBoxFor(x => x.SkillName, new { @class = "form-control" })
+    <br />
+    <label>Değer</label>
+    @Html.TextBoxFor(x => x.Rate, new { @class = "form-control" })
+    <br />
+    <label>Icon</label>
+    @Html.TextBoxFor(x => x.Icon, new { @class = "form-control" })
+    <br />
+    <label>Statü</label>
+    @Html.DropDownListFor(x => x.Status, new List<SelectListItem>
+    {
+        new SelectListItem { Text = "Aktif", Value = "true" },
+        new SelectListItem { Text = "Pasif", Value = "false" }
+    }, "Seçiniz", new { @class = "form-control" })
+    <br />
+    <button class="btn btn-info">Yeteneği Ekle</button>
 
-    <label>Yetenek Başlığı</label>
-    <input type="text" name="SkillName" class="form-control" />
-    <br />
-    <label>Yetenek Değeri</label>
-    <input type="number" name="Rate" class="form-control" />
-    <br />
-   <button class="btn btn-info">Yeteneği Ekle</button>
-    
 </form>
 
