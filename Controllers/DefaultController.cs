@@ -61,6 +61,7 @@ namespace PortfolioProject.Controllers
             ViewBag.phone = db.Profile.Select(x => x.Phone).FirstOrDefault();
             ViewBag.github = db.Profile.Select(x => x.Github).FirstOrDefault();
             ViewBag.imageurl = db.Profile.Select(x => x.ImageUrl).FirstOrDefault();
+            ViewBag.socialMedia=db.SocialMedia.Where(x=> x.Status==true).ToList();
 
             return PartialView();
         }
@@ -121,6 +122,8 @@ namespace PortfolioProject.Controllers
 
         public PartialViewResult PartialFooter()
         {
+
+            ViewBag.socialMedia = db.SocialMedia.Where(x => x.Status == true).ToList();
             return PartialView();
         }
 

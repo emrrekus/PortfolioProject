@@ -126,6 +126,7 @@
           <Property Name="Title" Type="nvarchar" MaxLength="50" />
           <Property Name="Url" Type="nvarchar" MaxLength="100" />
           <Property Name="Icon" Type="nvarchar" MaxLength="250" />
+          <Property Name="Status" Type="bit" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -296,6 +297,7 @@
           <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Url" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Icon" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -481,6 +483,7 @@
           <EntitySetMapping Name="SocialMedia">
             <EntityTypeMapping TypeName="DbMyPortfolioModel.SocialMedia">
               <MappingFragment StoreEntitySet="SocialMedia">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="SocialMediaId" ColumnName="SocialMediaId" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Url" ColumnName="Url" />

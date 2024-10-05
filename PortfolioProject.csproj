@@ -147,6 +147,7 @@
     <Compile Include="Controllers\PortfolioController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\SkillController.cs" />
+    <Compile Include="Controllers\SocialMediaController.cs" />
     <Compile Include="Controllers\StaticsController.cs" />
     <Compile Include="Controllers\TestimonialController.cs" />
     <Compile Include="Global.asax.cs">
@@ -570,6 +571,9 @@
     <Content Include="Views\Testimonial\TestimonialList.cshtml" />
     <Content Include="Views\Testimonial\TestimonialCreate.cshtml" />
     <Content Include="Views\Testimonial\TestimonialUpdate.cshtml" />
+    <Content Include="Views\SocialMedia\SocialMediaList.cshtml" />
+    <Content Include="Views\SocialMedia\CreateSocialMedia.cshtml" />
+    <Content Include="Views\SocialMedia\UpdateSocialMedia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
