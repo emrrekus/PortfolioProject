@@ -14,10 +14,11 @@
         <th>Gönderen</th>
         <th>Tarih</th>
         <th>Konu</th>
+        <th>Email</th>
+        <th>Tarih</th>
         <th>Durum</th>
+        <th>İşlemler</th>
 
-        <th>Mesajı Aç</th>
-        <th>Mesajı Sil</th>
     </tr>
 
     @foreach (var item in Model)
@@ -26,6 +27,8 @@
         <tr>
             <td>@count</td>
             <td>@item.NameSurname</td>
+            <td>@item.SendDate</td>
+            <td>@item.Email</td>
             <td>@item.SendDate</td>
 
             @switch (item.Subject)
@@ -59,17 +62,30 @@
 
             }
 
+            <td>
+                @if (item.IsRead == false)
+                {
+                    <a href="/Message/ChangeMessageStatusToTrue/@item.ContactId" class="btn btn-success">Okundu</a>
+                }
+                else
+                {
+                    <a href="/Message/ChangeMessageStatusToFalse/@item.ContactId" class="btn btn-danger">Okunmadı</a>
+                }
+            </td>
 
-            @if (item.IsRead == false)
-            {
-                <td><a href="/Message/ChangeMessageStatusToTrue/@item.ContactId" class="btn btn-info">Okundu Olarak İşaretle</a></td>
-            }
-            else
-            {
-                <td><a href="/Message/ChangeMessageStatusToFalse/@item.ContactId" class="btn btn-secondary">Okunmadı Olarak İşaretle</a></td>
-            }
-            <td><a href="#" class="btn btn-warning">Mesajı Aç</a></td>
-            <td><a href="/Message/DeleteMessage/@item.ContactId" class="btn btn-danger">Mesajı Sil</a></td>
+            <td>
+                @if (item.IsRead == false)
+                {
+                    <a href="/Message/ChangeMessageStatusToTrue/@item.ContactId" class="btn btn-secondary">Okunmadı Olarak İşaretle</a>
+                }
+                else
+                {
+                    <a href="/Message/ChangeMessageStatusToFalse/@item.ContactId" class="btn btn-info">Okundu Olarak İşaretle</a>
+                }
+                <a href="#" class="btn btn-warning">Mesajı Aç</a>
+                <a href="/Message/DeleteMessage/@item.ContactId" class="btn btn-danger">Mesajı Sil</a>
+            </td>
+
         </tr>
     }
 
